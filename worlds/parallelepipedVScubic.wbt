@@ -1,0 +1,474 @@
+#VRML_SIM R2019a utf8
+WorldInfo {
+  info [
+    "Example use of a color Camera device."
+  ]
+  title "Camera"
+}
+Viewpoint {
+  orientation 0.11560031693675017 -0.9551904440041418 -0.27248446268969817 4.022158218112051
+  position 2.801661461011858 1.995756327149141 -2.1128892467314437
+}
+TexturedBackground {
+}
+Shape {
+  appearance Appearance {
+    material Material {
+      diffuseColor 1 1 1
+    }
+  }
+  geometry Cylinder {
+    height 0.0001
+  }
+}
+Shape {
+  appearance Appearance {
+    material Material {
+      diffuseColor 1 1 1
+    }
+  }
+  geometry Plane {
+    size 10 10
+  }
+}
+TexturedBackgroundLight {
+  castShadows FALSE
+}
+CircleArena {
+  wallThickness 0.06
+  wallHeight 0.0001
+  wallAppearance BrushedAluminium {
+    colorOverride 0 0 0
+  }
+}
+DirectionalLight {
+  direction 1 -1 -1
+  intensity 0.4
+}
+DEF KOSTAS Robot {
+  translation -0.7 0.20057541457255737 0.4
+  rotation -0.0020421735244662434 -0.9999905992347616 0.0038250450191385484 1.57
+  children [
+    Transform {
+      translation 0 -0.03 0
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0 1 0
+            roughness 1
+            metalness 0
+          }
+          geometry DEF BODY Box {
+            size 0.4 0.2 0.4
+          }
+        }
+      ]
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        position -18995.77604176979
+        axis -1 0 0
+        anchor 0.2 -0.14 0.1
+      }
+      device [
+        RotationalMotor {
+          name "right wheel motor K back"
+          consumptionFactor 70
+        }
+        PositionSensor {
+          name "right wheel sensor K back"
+        }
+      ]
+      endPoint Solid {
+        translation 0.2 -0.14 0.1
+        rotation -0.9999999999999997 2.4543222869089306e-08 -1.4751414681823787e-08 4.2239572398544665
+        children [
+          DEF WHEEL_FRONT Transform {
+            rotation 0 0 1 1.57
+            children [
+              Shape {
+                appearance PBRAppearance {
+                  baseColor 0 1 0
+                  roughness 1
+                  metalness 0
+                }
+                geometry Cylinder {
+                  height 0.04
+                  radius 0.06
+                }
+              }
+            ]
+          }
+        ]
+        name "right wheel K back"
+        boundingObject USE WHEEL_FRONT
+        physics DEF PHYSICS_WHEEL_NEW Physics {
+          density -1
+          mass 0.05
+        }
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        position 19111.226771684007
+        axis -1 0 0
+        anchor 0.2 -0.14 -0.1
+      }
+      device [
+        RotationalMotor {
+          name "right wheel motor K front"
+          consumptionFactor 70
+        }
+        PositionSensor {
+          name "right wheel sensor K front"
+        }
+      ]
+      endPoint Solid {
+        translation 0.2 -0.14 -0.1
+        rotation 1 0 0 2.5753016673646023
+        children [
+          USE WHEEL_FRONT
+        ]
+        name "right wheel K front"
+        boundingObject USE WHEEL_FRONT
+        physics USE PHYSICS_WHEEL_NEW
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        position 19004.22395477136
+        axis -1 0 0
+        anchor -0.2 -0.14 0.1
+      }
+      device [
+        RotationalMotor {
+          name "left wheel motor K back"
+          consumptionFactor 70
+        }
+        PositionSensor {
+          name "left wheel sensor K back"
+        }
+      ]
+      endPoint Solid {
+        translation -0.2 -0.14 0.1
+        rotation -1 0 0 4.223954771361602
+        children [
+          USE WHEEL_FRONT
+        ]
+        name "left wheel K back"
+        boundingObject USE WHEEL_FRONT
+        physics DEF PHYSICS_WHEEL_NEW Physics {
+          density -1
+          mass 0.05
+        }
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        position -18816.585779120065
+        axis -1 0 0
+        anchor -0.2 -0.14 -0.1
+      }
+      device [
+        RotationalMotor {
+          name "left wheel motor K front"
+          consumptionFactor 70
+        }
+        PositionSensor {
+          name "left wheel sensor K front"
+        }
+      ]
+      endPoint Solid {
+        translation -0.20000000000000004 -0.1419848842705253 -0.10076746533212058
+        rotation 1 0 0 5.08133833545272
+        children [
+          USE WHEEL_FRONT
+        ]
+        name "left wheel K front"
+        boundingObject USE WHEEL_FRONT
+        physics USE PHYSICS_WHEEL_NEW
+      }
+    }
+    DistanceSensor {
+      translation -0.1 0.02 -0.2
+      rotation 0 1 0 1.5707996938995747
+      children [
+        DEF SENSOR Transform {
+          rotation 0 0 1 1.57
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.975691 0.981481 0.0252992
+                roughness 1
+                metalness 0
+              }
+              geometry Cylinder {
+                height 0.016
+                radius 0.032
+              }
+            }
+          ]
+        }
+      ]
+      name "ds0_k"
+    }
+    DistanceSensor {
+      translation 0.1 0.02 -0.19999999999999998
+      rotation 0 1 0 1.5708003061004252
+      children [
+        DEF SENSOR Transform {
+          rotation 0 0 1 1.57
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.975691 0.981481 0.0252992
+                roughness 1
+                metalness 0
+              }
+              geometry Cylinder {
+                height 0.016
+                radius 0.032
+              }
+            }
+          ]
+        }
+      ]
+      name "ds1_k"
+    }
+    Camera {
+      translation 0 0.098 -0.2
+      rotation 1.1144712396872027e-06 0.768221328583247 -0.6401843408804598 6.197284940292589
+      children [
+        Transform {
+          translation 0 0.01 0.08
+          rotation 0.9987503463604381 0 -0.049977451364642024 4.691870306100426
+          children [
+            Shape {
+              appearance PBRAppearance {
+                roughness 1
+                metalness 0
+              }
+              geometry Cylinder {
+                height 0.15
+                radius 0.04
+              }
+            }
+          ]
+        }
+      ]
+      name "camera K"
+      fieldOfView 1.05
+      width 80
+      height 60
+    }
+  ]
+  name "kostas"
+  boundingObject Transform {
+    translation 0 -0.03 0
+    children [
+      USE BODY
+    ]
+  }
+  physics Physics {
+    density -1
+    mass 0.5
+  }
+  controller "cameraK"
+  supervisor TRUE
+}
+DEF ANTONIA Robot {
+  translation 0.5 -0.00685368060887015 0.5
+  rotation 0.011466361366665054 -0.9998557310381242 0.012531546880857444 5
+  children [
+    Transform {
+      translation 0 0.17 0
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.029663538567177843 0.6292057679102769 0.8899977111467154
+            roughness 1
+            metalness 0
+          }
+          geometry DEF BODY Box {
+            size 0.3176 0.3176 0.3176
+          }
+        }
+      ]
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        position -18812.512942804915
+        axis -1 0 0
+        anchor -0.168 0.106 0
+      }
+      device [
+        RotationalMotor {
+          name "left wheel motor A"
+          consumptionFactor 70
+        }
+        PositionSensor {
+          name "left wheel sensor A"
+        }
+      ]
+      endPoint Solid {
+        translation -0.16799999999999998 0.10605638268221733 1.9968119479435693e-05
+        rotation 0.9994379714782303 0.003207925645292019 -0.033368403925487775 5.631304185984147
+        children [
+          DEF WHEEL Transform {
+            rotation 0 0 1 1.57
+            children [
+              Shape {
+                appearance PBRAppearance {
+                  baseColor 0.029663538567177843 0.6292057679102769 0.8899977111467154
+                  roughness 1
+                  metalness 0
+                }
+                geometry Cylinder {
+                  height 0.04
+                  radius 0.1
+                }
+              }
+            ]
+          }
+        ]
+        name "left wheel A"
+        boundingObject USE WHEEL
+        physics DEF PHYSICS_WHEEL Physics {
+          density -1
+          mass 0.05
+        }
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        position 19223.161845526192
+        axis -1 0 0
+        anchor 0.168 0.106 0
+      }
+      device [
+        RotationalMotor {
+          name "right wheel motor A"
+          consumptionFactor 70
+        }
+        PositionSensor {
+          name "right wheel sensor A"
+        }
+      ]
+      endPoint Solid {
+        translation 0.16799999999999998 0.10692590496501578 0.0002597890619520012
+        rotation 0.9998978054776384 -0.00453173462802921 0.013558834104155032 1.6986146179865855
+        children [
+          USE WHEEL
+        ]
+        name "right wheel A"
+        boundingObject USE WHEEL
+        physics USE PHYSICS_WHEEL
+      }
+    }
+    DistanceSensor {
+      translation -0.02 0.063 -0.042
+      rotation 0 1 0 2.07
+      children [
+        DEF SENSOR Transform {
+          translation 0.15 0.2 0
+          rotation 0 0 1 1.5708003061004252
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.975691 0.981481 0.0252992
+                roughness 1
+                metalness 0
+              }
+              geometry Cylinder {
+                height 0.016
+                radius 0.032
+              }
+            }
+          ]
+        }
+      ]
+      name "ds0_a"
+      lookupTable [
+        0 1024 0
+        0.05 1024 0
+        0.15 0 0
+      ]
+      numberOfRays 2
+      aperture 1
+    }
+    DistanceSensor {
+      translation 0.02 0.063 -0.042
+      rotation 0 1 0 1.07
+      children [
+        USE SENSOR
+      ]
+      name "ds1_a"
+      lookupTable [
+        0 1024 0
+        0.05 1024 0
+        0.15 0 0
+      ]
+      numberOfRays 2
+      aperture 1
+    }
+    DEF SMILE Transform {
+      translation 0 0.1 -0.144
+      rotation 0.7745972408364944 0.44721228048294853 0.4472139204829502 1.8234794
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.721569 0.290196 0.290196
+            roughness 1
+            metalness 0
+          }
+          geometry Cylinder {
+            height 0.072
+            radius 0.036
+            subdivision 3
+          }
+        }
+      ]
+    }
+    Camera {
+      translation 0 0.37 -0.12
+      rotation 0 0 -1 0
+      children [
+        Transform {
+          translation 0 0 0.015
+          rotation 1 0 0 1.57
+          children [
+            Shape {
+              appearance PBRAppearance {
+                roughness 1
+                metalness 0
+              }
+              geometry Cylinder {
+                height 0.12
+                radius 0.04
+              }
+            }
+          ]
+        }
+      ]
+      name "camera A"
+      fieldOfView 1.047
+      width 80
+      height 60
+      antiAliasing TRUE
+      noise 0.04
+    }
+  ]
+  name "antonia"
+  boundingObject Transform {
+    translation 0 0.17 0
+    children [
+      USE BODY
+    ]
+  }
+  physics Physics {
+    density -1
+    mass 0.5
+  }
+  controller "cameraA"
+  supervisor TRUE
+}
