@@ -46,7 +46,7 @@ int main() {
   int left_speed_K_front, right_speed_K_front, left_speed_K_back, right_speed_K_back;
   int k, l;
   int red_K, blue_K, green_K;
-  int blob_found = 0;
+  //int blob_found = 0;
   int collision = 0;
   enum BLOB_TYPE current_blob_K;
   double dist = 0.0;
@@ -60,7 +60,7 @@ int main() {
 
   /* Get the camera device, enable it, and store its width and height */
   camera_K = wb_robot_get_device("camera K");
-  wb_camera_enable(camera_K1, TIME_STEP);
+  wb_camera_enable(camera_K, TIME_STEP);
   width_K = wb_camera_get_width(camera_K);
   height_K = wb_camera_get_height(camera_K);
 
