@@ -46,16 +46,14 @@ int main() {
   int left_speed_A, right_speed_A;
   int i, j;
   int red_A, blue_A, green_A;
-  int found = 0;
   enum BLOB_TYPE current_blob_A;
-  int static_counter = 0;
 
   wb_robot_init();
   
   // get handle to robot's translation field
   WbNodeRef robot_node_A = wb_supervisor_node_get_from_def(robot_name[0]);
   WbFieldRef trans_field_A = wb_supervisor_node_get_field(robot_node_A, "translation");
-
+  
   /* Get the camera device, enable it, and store its width and height */
   camera_A = wb_robot_get_device("camera A");
   wb_camera_enable(camera_A, TIME_STEP);
@@ -82,19 +80,17 @@ int main() {
     // compute travelled distance
     double dist_A = sqrt(trans_A[0] * trans_A[0] + trans_A[2] * trans_A[2]);
     //printf("dist_A=%g\n", dist_A);
+    
     /* Decrement the pause_counter*/
     if (pause_counter_A > 0){
       pause_counter_A--;
       }
-    
-    if(pause_counter_A == 49){
-      static_counter++;
+
+    if (pause_counter_A < 50 && pause_counter_A > 45){
+      left_speed_A = -SPEED;
+      right_speed_A = SPEED;
+      //printf("pause_counter_A = %d\n", pause_counter_A);
     }
-    /*if (pause_counter_A < 50 && pause_counter_A > 48){
-      left_speed_A = SPEED;
-      right_speed_A = -SPEED;
-      printf("pause_counter_A = %d\n", pause_counter_A);
-    }*/
 
 
     /*
@@ -103,22 +99,9 @@ int main() {
      * The robot waits in front of it until pause_counter
      * is decremented enough
      */
-    if (static_counter < 15 && found == 0){
-      if ( pause_counter_A <= 50 && pause_counter_A > 40) {
-        left_speed_A = SPEED;
-        right_speed_A = SPEED;
-        //printf("pause_counter_A = %d\n", pause_counter_A);
-      }
-    
-      if (pause_counter_A == 40){
-        found = 1;
-      }
-    }
-
-    if (static_counter >= 15 && found == 0){
+    if ( pause_counter_A <= 45 && pause_counter_A > 10) {
       left_speed_A = SPEED;
-      right_speed_A = -SPEED;
-      static_counter = 0;
+      right_speed_A = SPEED;
     }
     /*
      * Case 2
@@ -150,7 +133,7 @@ int main() {
        * center of the image, and sum the color components individually
        */
       for (i = width_A / 3; i < 2 * width_A / 3; i++) {
-        for (j = height_A / 2; j < height_A; j++) {
+        for (j = height_A / 2; j < 3 * height_A / 4; j++) {
           red_A += wb_camera_image_get_red(image_A, width_A, i, j);
           blue_A += wb_camera_image_get_blue(image_A, width_A, i, j);
           green_A += wb_camera_image_get_green(image_A, width_A, i, j);
@@ -175,12 +158,7 @@ int main() {
        * No blob is detected
        * the robot continues to turn
        */
-      if (current_blob_A == NONE && found == 0 && pause_counter_A < 45) {
-        left_speed_A = SPEED;
-        right_speed_A = -SPEED;
-      }
-
-      if (current_blob_A == NONE && found == 1 && pause_counter_A < 45) {
+      if (current_blob_A == NONE) {
         left_speed_A = -SPEED;
         right_speed_A = SPEED;
       }
@@ -189,11 +167,10 @@ int main() {
        * A blob is detected
        * the robot stops, stores the image, and changes its state
        */
-      if (current_blob_A == GREEN) {
+      else {
         /*left_speed_A = SPEED;
         right_speed_A = SPEED;*/
         pause_counter_A = 50;
-        found = 0;
       }
     }
 
