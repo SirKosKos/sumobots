@@ -2,5 +2,6 @@ Strategy 3: It focuses mainly on the fact that if the robots meet in front, we o
 This is because the two robots move at a similar speed to each other in the opposite direction. Trying to avoid this 
 scenario, we follow this tactic. Initially, the robot rotates around itself until it finds the opponent's robot. When 
 it detects it, instead of heading straight for it, it deflects slightly to the left so that it can meet the rival robot
-at the side. This way, it can be pushed off the ground more easily because it will not receive the same resistance as before. During the simulation, however, we observe that while at first it seems to work well, when the opponent's robot disappears 
+at the side. This way, it can be pushed off the ground more easily because it will not receive the same resistance as before.
+During the simulation, however, we observe that while at first it seems to work well, when the opponent's robot disappears 
 from its field of vision, it makes a turn around itself to look for it. For the most part these turns are in the opposite direction to that of the other robot. The 4th strategy/approach is trying to correct this fact.
